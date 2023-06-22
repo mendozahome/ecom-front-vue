@@ -16,7 +16,7 @@
 
 <script>
 import NotFoundPage from './NotFoundPage.vue';
-import { products } from './../temp-data'
+import axios from 'axios'
 
 export default {
 name: "ProductDetailPage",
@@ -25,8 +25,13 @@ NotFoundPage
 },
 data(){
   return{
-    product: products.find(product => product.id === this.$route.params.productId)
+    product: {},
   }
+},
+async created(){
+const response = await axios.get(`/api/products/${this.$route.params.productId}`);
+const product = response.data;
+this.product = product;
 }
 }
 </script>
