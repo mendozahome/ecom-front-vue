@@ -5,7 +5,7 @@
   </div>
   <div class="product-details">
 <h1> {{ product.name }}</h1>
-<h3 class="price"> {{ product.price }} </h3>
+<h3 class="price"> ${{ product.price }} </h3>
 <button @click="addToCart" class="add-to-cart">Add to cart</button>
 </div>
 </div>
