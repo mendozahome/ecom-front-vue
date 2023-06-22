@@ -21,5 +21,12 @@ props: ['cartItems']
 </script>
 
 <style>
-
+.remove-button{
+  background-color: black;
+  color:white;
+  border-style: none;
+  border-radius:3%;
+  max-width: 10rem;
+  height: 5rem;
+}
 </style>

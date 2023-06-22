@@ -43,11 +43,17 @@ components: {
   max-height: 20rem;
 }
 .product-item button{
-  background: grey;
+  background-color: rgb(102, 86, 86);
+  color:white;
   border-style: none;
-  width: 100px;
-  height: 30px;
+  border-radius:2%;
+  max-width: 10rem;
+  height: 2rem;
+  transition: 1s;
   cursor: pointer;
+}
+.product-item button:hover{
+  background-color: black;
 }
 .product-title{
 display: flex;
