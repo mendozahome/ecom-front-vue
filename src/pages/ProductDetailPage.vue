@@ -6,9 +6,9 @@
   <div class="product-details">
 <h1> {{ product.name }}</h1>
 <h3 class="price"> ${{ product.price }} </h3>
-<button @click="addToCart" class="add-to-cart" v-if="!itemIsInCart">Add to cart</button>
-<button v-if="itemIsInCart">Item is already in cart</button>
-<button @click="signIn">Sign in to add to cart</button>
+<button @click="addToCart" class="add-to-cart" v-if="user && !itemIsInCart">Add to cart</button>
+<button v-if="user && itemIsInCart" class="already-in-cart">Item is already in cart</button>
+<button class="sign-toadd" @click="signIn" v-if="!user">Sign in to add to cart</button>
 </div>
 </div>
 <div v-if="!product">
@@ -23,6 +23,7 @@ import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailL
 
 export default {
 name: "ProductDetailPage",
+props: ['user'],
 components: {
 NotFoundPage
 },
@@ -37,10 +38,18 @@ itemIsInCart(){
   return this.cartItems.some(item => item.id === this.$route.params.productId);
 }
 },
-
+watch: {
+async user(newUserValue){
+if(newUserValue){
+  const cartResponse = await axios.get(`/api/users/${newUserValue.uid}/cart`);
+  const cartItems = cartResponse.data;
+  this.cartItems = cartItems;
+}
+}
+},
 methods: {
 async addToCart(){
- await axios.post('/api/users/12345/cart',
+ await axios.post(`/api/users/${this.user.uid}/cart`,
  { id: this.$route.params.productId}
  )
  alert('Successfully added item to cart!');
@@ -67,13 +76,18 @@ if (isSignInWithEmailLink(auth, window.location.href)) {
   window.localStorage.removeItem('emailForSignIn')
 }
 
+
+
 const response = await axios.get(`/api/products/${this.$route.params.productId}`);
 const product = response.data;
 this.product = product;
 
-const cartResponse = await axios.get(`/api/users/12345/cart`);
+
+if(this.user){
+const cartResponse = await axios.get(`/api/users/${this.user.uid}/cart`);
 const cartItems = cartResponse.data;
 this.cartItems = cartItems;
+}
 }
 
 
@@ -101,7 +115,7 @@ this.cartItems = cartItems;
   background-color: rgb(45, 158, 0);
   color:white;
   border-style: none;
-  border-radius:2%;
+  border-radius:3px;
   max-width: 10rem;
   height: 2rem;
   transition: 1s;
@@ -109,5 +123,28 @@ this.cartItems = cartItems;
 }
 .add-to-cart:hover{
   background-color: rgb(20, 99, 20);
+}
+.sign-toadd {
+  background-color: rgb(45, 158, 0);
+  color:white;
+  border-style: none;
+  border-radius:3px;
+  max-width: 10rem;
+  height: 2rem;
+  transition: 1s;
+  cursor: pointer;
+}
+.sign-toadd:hover{
+  background-color: rgb(20, 99, 20);
+}
+.already-in-cart{
+  background-color: gray;
+  color:white;
+  border-style: none;
+  border-radius:3px;
+  max-width: 10rem;
+  height: 2rem;
+  transition: 1s;
+  cursor: not-allowed;
 }
 </style>

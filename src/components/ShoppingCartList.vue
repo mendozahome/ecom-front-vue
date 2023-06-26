@@ -22,11 +22,17 @@ props: ['cartItems']
 
 <style>
 .remove-button{
-  background-color: black;
+  background-color: blue;
+  font-weight: bold;
   color:white;
   border-style: none;
-  border-radius:3%;
+  border-radius:2px;
   max-width: 10rem;
-  height: 5rem;
+  height: 3rem;
+  margin-bottom: 10px;
+  transition:2s;
+}
+.remove-button:hover{
+  background-color: darkblue;
 }
 </style>

@@ -43,7 +43,7 @@ components: {
   max-height: 20rem;
 }
 .product-item button{
-  background-color: rgb(102, 86, 86);
+  background-color: #555555;
   color:white;
   border-style: none;
   border-radius:2%;
