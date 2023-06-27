@@ -58,7 +58,7 @@ async signIn(){
 const email = prompt('Please enter your email to sign in');
 const auth = getAuth();
 const actionCodeSettings = {
-url: `http://localhost:8080/products/${this.$route.params.productId}`,
+url: `https://full-stack-vue-jw3j.onrender.com/products/${this.$route.params.productId}`,
 handleCodeInApp: true,
 }
 await sendSignInLinkToEmail(auth,email,actionCodeSettings)

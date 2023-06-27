@@ -2,6 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
-    proxy: 'http://localhost:8000'
+    proxy: 'https://full-stack-vue-jw3j.onrender.com'
   }
+  
 })
